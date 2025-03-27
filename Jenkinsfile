@@ -4,15 +4,15 @@ pipeline{
     stages{
         stage("Build"){
             steps{
-                sh 'sudo docker build -t sample-app-py'
+                sh 'docker build -t sample-app-py'
             }
         }
         stage("Tag and push"){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'myCred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'sudo docker tag  sample-app-py:latest ameem/sample-app-py:latest'
-                    sh "sudo docker login -u ${USERNAME} -p ${PASSWORD}"
-                    sh 'sudo docker push ameem/sample-app-py'
+                    sh 'docker tag  sample-app-py:latest ameem/sample-app-py:latest'
+                    sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+                    sh 'docker push ameem/sample-app-py'
                 }
             }
         }
